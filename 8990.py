@@ -1,18 +1,24 @@
-#We must redefine it in Py3k if it's not already there
-def execfile(file, glob=None, loc=None):
-    if glob is None:
-        import sys
-        glob = sys._getframe().f_back.f_globals
-    if loc is None:
-        loc = glob
+import pandas as pd
+import matplotlib.pyplot as plt
+import openpyxl
+file_path = 'data.xlsx'  # Путь к файлу Excel
+df = pd.read_excel(file_path)
 
-    # It seems that the best way is using tokenize.open(): http://code.activestate.com/lists/python-dev/131251/
-    import tokenize
-    stream = tokenize.open(file)  # @UndefinedVariable
-    try:
-        contents = stream.read()
-    finally:
-        stream.close()
+# Проверяем структуру данных
+print(df.head())  # Вывод первых строк для проверки
 
-    #execute the script (note: it's important to compile first to have the filename set in debug mode)
-    exec(compile(contents+"\n", file, 'exec'), glob, loc)
+# Шаг 2: Построение графика
+plt.figure(figsize=(8, 6))  # Размер окна графика
+
+# Используем данные из DataFrame
+plt.plot(df['x'], df['y'], marker='o', label='Зависимость y от x')
+
+
+plt.title('График из Excel')
+plt.xlabel('Ось X')
+plt.ylabel('Ось Y')
+plt.legend()
+plt.grid(True)  # Включить сетку
+
+# Шаг 3: Отображаем график
+plt.show()
