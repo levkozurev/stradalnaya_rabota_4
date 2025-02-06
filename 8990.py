@@ -1,24 +1,22 @@
-import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-import openpyxl
-file_path = 'data.xlsx'  # Путь к файлу Excel
-df = pd.read_excel(file_path)
 
-# Проверяем структуру данных
-print(df.head())  # Вывод первых строк для проверки
+# Создание массива значений x от 0 до 2π
+x = np.linspace(0, 2 * np.pi, 1000)
 
-# Шаг 2: Построение графика
-plt.figure(figsize=(8, 6))  # Размер окна графика
+# Вычисление значений y = sin(x)
+y = np.sin(x)
 
-# Используем данные из DataFrame
-plt.plot(df['x'], df['y'], marker='o', label='Зависимость y от x')
+# Построение графика
+plt.plot(x, y)
 
+# Добавление подписей осей и заголовка
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('График функции y = sin(x)')
 
-plt.title('График из Excel')
-plt.xlabel('Ось X')
-plt.ylabel('Ось Y')
-plt.legend()
-plt.grid(True)  # Включить сетку
+# Добавление сетки
+plt.grid(True)
 
-# Шаг 3: Отображаем график
+# Отображение графика
 plt.show()
